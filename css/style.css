@@ -1,0 +1,321 @@
+@font-face {
+    font-family: Quicksand;
+    font-style: normal;
+    font-weight: 300;
+    font-display: swap;
+    src: url(https://fonts.gstatic.com/s/quicksand/v36/6xK-dSZaM9iE8KbpRA_LJ3z8mH9BOJvgkKEo18E.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: Quicksand;
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url(https://fonts.gstatic.com/s/quicksand/v36/6xK-dSZaM9iE8KbpRA_LJ3z8mH9BOJvgkP8o18E.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: Quicksand;
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url(https://fonts.gstatic.com/s/quicksand/v36/6xK-dSZaM9iE8KbpRA_LJ3z8mH9BOJvgkM0o18E.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: Quicksand;
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url(https://fonts.gstatic.com/s/quicksand/v36/6xK-dSZaM9iE8KbpRA_LJ3z8mH9BOJvgkCEv18E.ttf) format('truetype');
+}
+
+.bg-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    min-width: 100%;
+    min-height: 100%;
+    z-index: -1;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+    pointer-events: none;
+}
+
+body.dark-mode #dark-video,
+body.light-mode #light-video {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+body {
+    font-family: Quicksand, sans-serif;
+    font-weight: 300;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    color: #fff;
+    display: flex;
+    flex-direction: row;
+    min-height: 100vh;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+body.dark-mode .container {
+    backdrop-filter: blur(8px) brightness(0.6);
+}
+
+body.dark-mode .box {
+    background: rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode .box:hover {
+    background: rgba(0, 0, 0, 0.4);
+}
+
+.container {
+    backdrop-filter: blur(8px) brightness(0.8);
+    font-weight: 400;
+    width: 33.33%;
+    padding: 2rem;
+    min-height: 100vh;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+}
+
+.container .profile-pic img {
+    width: 50%;
+    border-radius: 50%;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+}
+
+.container .name {
+    margin: -0.5rem 0;
+}
+
+.container .description {
+    font-size: 0.9rem;
+    margin: 1rem 0;
+}
+
+.box {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 1rem;
+    padding: 2rem;
+    margin: 2rem 0;
+    backdrop-filter: blur(5px);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease-in-out;
+}
+
+.box:hover {
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+}
+
+.box h2 {
+    margin: 0 0 1rem;
+    font-weight: 500;
+}
+
+.box p {
+    margin: 0;
+    line-height: 1.8;
+}
+
+.box ul {
+    margin: 0;
+    padding-left: 1.5rem;
+    text-align: left;
+}
+
+.box ul li {
+    margin-bottom: 0.5rem;
+    line-height: 1.6;
+}
+
+.project-items img {
+    width: 3rem;
+    border-radius: 1rem;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease-in-out;
+}
+
+.project-items img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+}
+
+.contact-container {
+    position: fixed;
+    right: 0;
+    top: -2rem;
+    width: 50%;
+    padding: 1.5rem;
+    min-height: 100vh;
+    font-weight: 400;
+}
+
+.contact-container .box {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    margin: 1rem 0;
+    backdrop-filter: blur(5px);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease-in-out;
+}
+
+.contact-container .box:hover {
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+}
+
+.contact-container .box h2 {
+    margin: 0 0 0.5rem;
+    font-weight: 500;
+}
+
+.contact-container .box .items {
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    line-height: 1.5;
+}
+
+.contact-container .box .items a {
+    color: #fff;
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
+    margin: 0 0.4rem;
+}
+
+.contact-container .box .items a i {
+    font-size: 2.5rem;
+}
+
+.contact-container .box .items a:hover {
+    text-decoration: underline;
+}
+
+.contact-container .status {
+    width: 1.4rem;
+    vertical-align: middle;
+}
+
+.theme-toggle {
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    z-index: 1000;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    border-radius: 50%;
+    width: 3rem;
+    height: 3rem;
+    cursor: pointer;
+    backdrop-filter: blur(5px);
+    color: #fff;
+    transition: all 0.3s ease;
+}
+
+.theme-toggle:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.1);
+}
+
+.theme-toggle i {
+    font-size: 1.2rem;
+}
+
+.items {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 2em;
+    justify-content: center;
+}
+
+.discord-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #7289da;
+    font-weight: bold;
+}
+
+@media screen and (max-width: 768px) {
+    body {
+        background-position: center;
+        flex-direction: column;
+        background-attachment: scroll;
+        background-size: auto 100%;
+    }
+
+    .container, .contact-container {
+        width: 95%;
+        padding: 0.5rem;
+        min-height: auto;
+        position: static;
+    }
+
+    .container .profile-pic img {
+        width: 70%;
+    }
+
+    .box {
+        padding: 1rem;
+        margin: 1rem 0;
+    }
+
+    .box ul {
+        padding-left: 1rem;
+    }
+
+    .contact-container .box {
+        padding: 1rem;
+    }
+
+    .contact-container .box h2 {
+        font-size: 1.2rem;
+    }
+
+    .contact-container .box p {
+        font-size: 0.9rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .container .profile-pic img {
+        width: 80%;
+    }
+
+    .box {
+        padding: 0.8rem;
+    }
+
+    .box h2 {
+        font-size: 1.1rem;
+    }
+
+    .box p,
+    .box ul {
+        font-size: 0.85rem;
+    }
+
+    .contact-container .box h2 {
+        font-size: 1.1rem;
+    }
+
+    .contact-container .box p {
+        font-size: 0.85rem;
+    }
+
+    .contact-container .box p a i {
+        font-size: 2rem;
+    }
+}
