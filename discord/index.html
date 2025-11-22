@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <title>Open Discord</title>
+  <!-- Attempt to redirect using Discord protocol -->
+  <meta http-equiv="refresh" content="0; url=discord://-/users/642437637147459584">
   <style>
     body {
       display: flex;
@@ -28,11 +30,17 @@
       background-color: #5b6eae;
     }
   </style>
+  <script>
+    // Try redirect again after short delay (works for some mobile browsers)
+    setTimeout(() => {
+      window.location.href = "discord://-/users/642437637147459584";
+    }, 500);
+  </script>
 </head>
 <body>
   <div>
     <h1>Open my Discord profile</h1>
-    <p>Click the button below to open Discord:</p>
+    <p>If your browser doesn’t open Discord automatically, click the button below:</p>
     <a class="button" href="https://discord.com/users/642437637147459584" target="_blank">Open Discord</a>
   </div>
 </body>
