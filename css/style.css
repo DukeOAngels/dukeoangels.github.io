@@ -160,6 +160,19 @@ body.dark-mode .box:hover {
     font-weight: 400;
 }
 
+.contact-container .items a {
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px; /* Space between icon and text */
+    color: inherit; /* Keeps icons/text same color */
+}
+
+.contact-container .items a span {
+    text-decoration: none;
+    font-weight: 500;
+}
+
 .contact-container .box {
     background: rgba(255, 255, 255, 0.1);
     border-radius: 1rem;
