@@ -1,115 +1,150 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Duke's Homepage</title>
-    <meta name="description" content="My personal website!">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link rel="stylesheet" href="css/style.css">
+    <title>Duke's Workspace</title>
+    <meta name="description" content="Duke's personal portfolio – 3D art, Python development, and creative projects.">
+    
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-    <script defer>
-        document.addEventListener("DOMContentLoaded", () => {
-            const toggle = document.getElementById("theme-toggle");
-            const body = document.body;
-
-            toggle.addEventListener("click", () => {
-                body.classList.toggle("dark-mode");
-                body.classList.toggle("light-mode");
-
-                const darkVideo = document.getElementById("dark-video");
-                const lightVideo = document.getElementById("light-video");
-
-                if (body.classList.contains("dark-mode")) {
-                    darkVideo.style.display = "block";
-                    lightVideo.style.display = "none";
-                } else {
-                    darkVideo.style.display = "none";
-                    lightVideo.style.display = "block";
-                }
-            });
-        });
-    </script>
-
-    <style>
-        .bg-video {
-        transition: opacity 1s ease-in-out;
-        opacity: 0;
-        pointer-events: none;
-        }
-
-        body.dark-mode #dark-video {
-        opacity: 1;
-        }
-
-        body.light-mode #light-video {
-        opacity: 1;
-        }
-
-    </style>
 </head>
+<body>
 
-<body class="dark-mode">
-    <video id="dark-video" class="bg-video" autoplay muted loop playsinline>
-        <source src="https://static.moewalls.com/videos/preview/2024/neon-cars-preview.webm" type="video/webm">
-    </video>
+    <!-- SIDE PANEL -->
+    <div id="side-panel" class="panel-container">
+        <div class="trapdoor top-door"></div>
+        <div class="trapdoor bottom-door"></div>
 
-    <video id="light-video" class="bg-video" autoplay muted loop playsinline style="display: none;">
-        <source src="https://static.moewalls.com/videos/preview/2024/toyota-ae86-trueno-drifting-initial-d-preview.webm" type="video/webm">
-    </video>
+        <div class="panel-content">
+            <div class="panel-inner">
+                <h1 class="panel-title">Duke</h1>
+                <p class="panel-subtitle">Living my life..</p>
+                
+                <nav class="panel-navigation">
+                    <button class="nav-item active" data-target="viewport-main">Main Page</button>
+                    <button class="nav-item" data-target="viewport-render">Render Work</button>
+                    <button class="nav-item" data-target="viewport-davinci">DaVinci Edits</button>
+                    <button class="nav-item" data-target="viewport-github">GitHub Repos</button>
+                    <button class="nav-item" data-target="viewport-python">Python Scripts</button>
+                </nav>
 
-    <button id="theme-toggle" class="theme-toggle">
-        <i class="bi bi-moon-stars-fill"></i>
-    </button>
-
-    <div class="container">
-        <div class="profile-pic">
-            <img src="img/duke-pfp.jpg" alt="Profile Picture" loading="eager">
-        </div>
-
-        <h1 class="name">Duke</h1>
-
-        <div class="description">
-            <h2>Living my life..</h2>
-        </div>
-
-        <div class="box">
-            <h2>About Me</h2>
-            <p>
-                Chill by default, tilted by instinct — but I bounce back fast.<br>
-                Headphones on most of the time, music blasting at full volume keeps me alive.<br><br>
-                Big fan of horror games and chaotic project managing.<br>
-                I’m all about building weird things, breaking them, and rebuilding them better.<br><br>
-                <strong>Tools of the trade:</strong><br>
-                › Python • Blender • Blockbench • Photoshop • DaVinci Resolve
-            </p>
+                <div class="panel-footer-box">
+                    <h3>Tools of the trade</h3>
+                    <p>Python • Blender • Blockbench • Photoshop • DaVinci Resolve</p>
+                </div>
+            </div>
         </div>
     </div>
 
-<div class="contact-container">
-    <div class="box">
-        <h2>Find Me</h2>
-        <div class="items">
-            
-            <a href="https://github.com/DukeOAngels" target="_blank">
-                <i class="bi bi-github"></i>
-            </a>
+    <!-- TOP HEADER CONTROL STRIP -->
+    <header class="top-bar">
+        <button id="menu-toggle" class="dashed-menu-btn" aria-label="Open Menu">
+            <span class="dash"></span>
+            <span class="dash"></span>
+            <span class="dash"></span>
+        </button>
 
-            <a href="https://sketchfab.com/Duke3D" target="_blank">
-                <img src="https://static.sketchfab.com/img/press/logos/sketchfab-logo-text.png" 
-                     alt="Sketchfab Logo" style="height: 40px; vertical-align: middle;">
+        <nav class="social-nav">
+            <a href="https://github.com/DukeOAngels" target="_blank" title="GitHub"><i class="bi bi-github"></i></a>
+            <a href="https://sketchfab.com/Duke3D" target="_blank" title="Sketchfab" class="sketchfab-link">
+                <img src="https://static.sketchfab.com/img/press/logos/sketchfab-logo-text.png" alt="Sketchfab">
             </a>
-
-            <a href="https://dukeoangels.github.io/discord" target="_blank" class="discord-link">
+            <a href="https://dukeoangels.github.io/discord" target="_blank" title="Discord" class="discord-link">
                 <i class="bi bi-discord"></i>
-                <span>v1be.exe</span>
+                <span class="discord-tag">v1be.exe</span>
             </a>
+        </nav>
+    </header>
 
-        </div>
-    </div>
-</div>
+    <!-- VIEWPORT WORKSPACE CONTAINERS -->
+    <main id="viewports-wrapper">
+        
+        <!-- MAIN PAGE VIEWPORT (ABOUT ME) -->
+        <section id="viewport-main" class="view-section active">
+            <div class="hero-center">
+                <div class="profile-frame">
+                    <img src="https://github.com/DukeOAngels/dukeoangels.github.io/blob/main/img/duke-pfp.jpg?raw=true" alt="Duke Profile Picture">
+                </div>
+                <h1 class="hero-name">About Me</h1>
+                
+                <div class="bio-content">
+                    <p class="bio-lead">Chill by default, tilted by instinct — but I bounce back fast.</p>
+                    <p class="bio-text">Headphones on most of the time, music blasting at full volume keeps me alive.</p>
+                    <p class="bio-text">Big fan of horror games and chaotic project managing. I’m all about building weird things, breaking them, and rebuilding them better.</p>
+                    
+                    <div class="bio-tools-list">
+                        <span class="tools-label">Tools of the trade:</span>
+                        <p class="tools-items">› Python • Blender • Blockbench • Photoshop • DaVinci Resolve</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- RENDER SLIDER SYSTEM TAB -->
+        <section id="viewport-render" class="view-section">
+            <div id="render-workspace-container" class="slider-workspace">
+                <!-- Injected dynamically by JavaScript -->
+                <div class="terminal-loader slider-loader">
+                    <p class="console-line">> SCANNING FOR REMOTELY STREAMED ART WORKSPACES...</p>
+                </div>
+                
+                <!-- Physical Interactive Split Controller Handle -->
+                <div id="slider-handle" class="slider-divider" style="display: none;">
+                    <div class="handle-button">
+                        <i class="bi bi-arrows-left-right"></i>
+                    </div>
+                </div>
+
+                <!-- Gallery Navigation Action Buttons -->
+                <button id="prev-work" class="gallery-arrow arrow-left" aria-label="Previous Project" style="display: none;">
+                    <i class="bi bi-chevron-left"></i>
+                </button>
+                <button id="next-work" class="gallery-arrow arrow-right" aria-label="Next Project" style="display: none;">
+                    <i class="bi bi-chevron-right"></i>
+                </button>
+                
+                <div id="gallery-counter" class="gallery-index-tag" style="display: none;">PROJECT // --</div>
+            </div>
+        </section>
+
+        <!-- DAVINCI RESOLVE CLIP MODULES TAB -->
+        <section id="viewport-davinci" class="view-section">
+            <div class="section-container">
+                <h2 class="view-title">DaVinci Resolve Edits</h2>
+                <div id="davinci-dynamic-grid" class="video-grid">
+                    <div class="terminal-loader">
+                        <p class="console-line">> PARSING VIDEO CHANNELS FROM REMOTE REPOSITORY...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- GITHUB GRID VIEW TAB -->
+        <section id="viewport-github" class="view-section">
+            <div class="section-container">
+                <h2 class="view-title">GitHub Repositories</h2>
+                <div id="github-dynamic-grid" class="github-grid">
+                    <div class="terminal-loader">
+                        <p class="console-line">> FETCHING GITHUB REPOSITORY METRICS...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PYTHON LAB WORKING BENCH TAB -->
+        <section id="viewport-python" class="view-section">
+            <div class="section-container static-center">
+                <div class="terminal-loader">
+                    <p class="console-line">> INITIALIZING PYTHON LAB ENVIRONMENT...</p>
+                    <p class="console-line status-yellow">> STATUS: STANDBY_MODE_ACTIVE</p>
+                    <p class="console-line sub-text">// Experimental repositories coming down the pipeline soon.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="script.js" defer></script>
+</body>
 </html>
