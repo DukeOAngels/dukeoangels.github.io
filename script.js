@@ -168,6 +168,46 @@ document.addEventListener("DOMContentLoaded", () => {
             console.error(err);
             workspace.innerHTML = `<p class="console-line status-yellow" style="padding:40px">> TARGET LOCATION 'render/' INACCESSIBLE</p>`;
         }
+
+        // --- 3. POPULATE PYTHON / NIM LAB ---
+        const pythonGrid = document.getElementById("python-dynamic-grid");
+        try {
+            const res = await fetch(getApiUrl("python"));
+            if (!res.ok) throw new Error("Could not fetch python folder contents");
+            const files = await res.json();
+            
+            const scriptExtensions = [".py", ".nim"];
+            const scripts = files.filter(f => scriptExtensions.some(ext => f.name.toLowerCase().endsWith(ext)));
+            
+            if (scripts.length === 0) {
+                pythonGrid.innerHTML = `<p class="console-line" style="color: rgba(255,255,255,0.3)">// Drop raw .py or .nim files into your repository's python/ folder</p>`;
+            } else {
+                pythonGrid.innerHTML = "";
+                scripts.forEach(script => {
+                    const extension = script.name.split('.').pop();
+                    const isNim = extension.toLowerCase() === "nim";
+                    const badgeColor = isNim ? "#dedede" : "#3776ab";
+                    const textColor = isNim ? "#0f0f11" : "#ffffff";
+                    
+                    const card = `
+                        <a href="${script.html_url}" target="_blank" class="repo-card script-card">
+                            <div class="repo-header">
+                                <i class="bi bi-file-earmark-code"></i>
+                                <span class="repo-status" style="background: ${badgeColor}; color: ${textColor}; padding: 2px 6px; font-size: 0.65rem; font-weight: bold; border-radius: 3px;">
+                                    ${extension.toUpperCase()}
+                                </span>
+                            </div>
+                            <h3>${script.name}</h3>
+                            <p>// Click to view or inspect raw source code components live on GitHub.</p>
+                        </a>
+                    `;
+                    pythonGrid.insertAdjacentHTML("beforeend", card);
+                });
+            }
+        } catch (err) {
+            console.error(err);
+            pythonGrid.innerHTML = `<p class="console-line status-yellow">> TARGET LOCATION 'python/' INACCESSIBLE</p>`;
+        }
     }
 
     // Slider Split Line Position Mathematics
@@ -203,7 +243,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // ==========================================================================
-    // DYNAMIC GITHUB REPOSITORY LIVE FETCHER (TAB 4)
+    // DYNAMIC GITHUB REPOSITORY LIVE FETCHER
     // ==========================================================================
     const githubGrid = document.getElementById("github-dynamic-grid");
 
@@ -215,7 +255,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const repos = await response.json();
             githubGrid.innerHTML = "";
 
-            if(repos.length === 0) {
+            if (repos.length === 0) {
                 githubGrid.innerHTML = `<p class="console-line" style="color: rgba(255,255,255,0.4)">// No public repositories found on this account.</p>`;
                 return;
             }
