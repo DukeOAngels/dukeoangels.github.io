@@ -15,48 +15,6 @@ body {
     height: 100vh;
 }
 
-/* ==========================================================================
-   AMBIENT FULL-SCREEN BACKGROUND VIDEO LAYER
-   ========================================================================== */
-.video-bg-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: -2; /* Keeps it strictly underneath all UI assets */
-    overflow: hidden;
-    background-color: #0b0b0e; /* Fallback baseline */
-}
-
-.video-bg-container video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Forces video to fill frame perfectly without stretching */
-}
-
-/* The semi-transparent darkening mask layer */
-.video-bg-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(11, 11, 14, 0.75); /* Dark tint layer - raise 0.75 higher if text blends too much */
-    z-index: -1;
-}
-
-/* ==========================================================================
-   TEXT READABILITY ADJUSTMENT (FROSTED GLASS EFFECT)
-   ========================================================================== */
-/* Updates your main page layout blocks to pop cleanly over moving background frames */
-.view-section {
-    /* ... keep your existing properties ... */
-    background: rgba(11, 11, 14, 0.4); /* Subtle backing sheet */
-    backdrop-filter: blur(8px); /* Frosted glass separation engine */
-    -webkit-backdrop-filter: blur(8px);
-}
-
 /* Custom Webkit Scrollbars */
 ::-webkit-scrollbar {
     width: 6px;
@@ -71,6 +29,45 @@ body {
 }
 ::-webkit-scrollbar-thumb:hover {
     background: #3a3a4a;
+}
+
+/* ==========================================================================
+   AMBIENT FULL-SCREEN BACKGROUND VIDEO LAYER (FIXED AXIS)
+   ========================================================================== */
+.video-bg-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2; /* Forces it completely behind everything else */
+    overflow: hidden;
+    background-color: #0b0b0e;
+}
+
+.video-bg-container video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    transform: translate(-50%, -50%);
+    object-fit: cover; /* Forces aspect ratio to fill screen without stretching */
+}
+
+/* The semi-transparent darkening mask layer */
+.video-bg-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(11, 11, 14, 0.75); /* Dark tint overlay */
+    z-index: -1;
 }
 
 /* ==========================================================================
@@ -275,7 +272,7 @@ body {
 }
 
 /* ==========================================================================
-   VIEWPORT FRAMES & LAYOUT WRAPPERS
+   VIEWPORT FRAMES & LAYOUT WRAPPERS (WITH FROSTED READABILITY ENGINE)
    ========================================================================== */
 #viewports-wrapper {
     position: relative;
@@ -295,6 +292,9 @@ body {
     transform: scale(0.99);
     transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
     overflow-y: auto;
+    background: rgba(11, 11, 14, 0.4); /* Subtle backing sheet over background video */
+    backdrop-filter: blur(8px); /* Frosted glass separation engine */
+    -webkit-backdrop-filter: blur(8px);
 }
 
 .view-section.active {
