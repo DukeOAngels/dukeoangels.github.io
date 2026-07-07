@@ -1,30 +1,244 @@
 /* ==========================================================================
-   RESET & FOUNDATION
+   PORTFOLIO STRUCTURE & CYBER TERMINAL COLOR SCHEMES
    ========================================================================== */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Consolas', 'Courier New', Courier, monospace;
 }
 
-body, html {
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    background-color: #030303;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    color: #ffffff;
-    user-select: none;
+body {
+    background-color: #0b0b0e;
+    color: #eaeaea;
+    overflow-x: hidden;
+    height: 100vh;
+}
+
+/* Custom Webkit Scrollbars */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+::-webkit-scrollbar-track {
+    background: #0f0f13;
+}
+::-webkit-scrollbar-thumb {
+    background: #252530;
+    border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #3a3a4a;
 }
 
 /* ==========================================================================
-   VIEWPORT ENGINE ROUTER
+   NAVIGATION TRAPDOOR PANEL SYSTEM
+   ========================================================================== */
+.panel-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 320px;
+    height: 100%;
+    z-index: 999;
+    pointer-events: none;
+    visibility: hidden;
+}
+
+.panel-container.active {
+    pointer-events: auto;
+    visibility: visible;
+}
+
+/* Mechanical Trapdoors split on closure */
+.trapdoor {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    background: #0e0e12;
+    border-right: 1px dashed rgba(255, 255, 255, 0.05);
+    transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+    z-index: 1;
+}
+
+.top-door { top: 0; transform: translateY(-100%); }
+.bottom-door { bottom: 0; transform: translateY(100%); }
+
+.panel-container.open .top-door,
+.panel-container.open .bottom-door {
+    transform: translateY(0);
+}
+
+.panel-content {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    opacity: 0;
+    transform: scale(0.95);
+    transition: opacity 0.25s ease, transform 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    padding: 40px 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+.panel-container.open .panel-content {
+    opacity: 1;
+    transform: scale(1);
+    transition-delay: 0.15s;
+}
+
+.panel-inner {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.panel-title {
+    font-size: 2rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+    margin-bottom: 5px;
+    background: linear-gradient(45deg, #ffffff, #888888);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.panel-subtitle {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.4);
+    margin-bottom: 40px;
+}
+
+/* Navigation Links layout */
+.panel-navigation {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex-grow: 1;
+}
+
+.nav-item {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    color: rgba(255, 255, 255, 0.5);
+    text-align: left;
+    padding: 14px 20px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.nav-item:hover, .nav-item.active {
+    background: rgba(255, 255, 255, 0.03);
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.15);
+    padding-left: 26px;
+}
+
+.panel-footer-box {
+    border-top: 1px dashed rgba(255, 255, 255, 0.05);
+    padding-top: 20px;
+}
+
+.panel-footer-box h3 {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: rgba(255, 255, 255, 0.3);
+    margin-bottom: 5px;
+}
+
+.panel-footer-box p {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.6);
+    line-height: 1.4;
+}
+
+/* ==========================================================================
+   TOP BAR CONTROL STRIP & INTERACTIVE BUTTONS
+   ========================================================================== */
+.top-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+    z-index: 900;
+    background: linear-gradient(to bottom, #0b0b0e 40%, transparent);
+}
+
+.dashed-menu-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    width: 32px;
+    height: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.dashed-menu-btn .dash {
+    width: 100%;
+    height: 2px;
+    background-color: #ffffff;
+    transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.dashed-menu-btn .dash:nth-child(2) { width: 75%; }
+
+.dashed-menu-btn.active .dash:nth-child(1) { transform: translateY(11px) rotate(45deg); }
+.dashed-menu-btn.active .dash:nth-child(2) { opacity: 0; transform: translateX(-10px); }
+.dashed-menu-btn.active .dash:nth-child(3) { transform: translateY(-11px) rotate(-45deg); }
+
+.social-nav {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.social-nav a {
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 1.2rem;
+    transition: color 0.2s ease;
+    text-decoration: none;
+}
+
+.social-nav a:hover { color: #ffffff; }
+
+.sketchfab-link img {
+    height: 14px;
+    opacity: 0.4;
+    filter: brightness(0) invert(1);
+    transition: opacity 0.2s ease;
+}
+.sketchfab-link:hover img { opacity: 1; }
+
+.discord-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.discord-tag {
+    font-size: 0.75rem;
+    letter-spacing: 0.5px;
+    color: rgba(255, 255, 255, 0.25);
+}
+
+/* ==========================================================================
+   VIEWPORT FRAMES & LAYOUT WRAPPERS
    ========================================================================== */
 #viewports-wrapper {
-    width: 100%;
-    height: 100%;
     position: relative;
-    z-index: 10;
+    width: 100%;
+    height: 100vh;
 }
 
 .view-section {
@@ -33,61 +247,57 @@ body, html {
     left: 0;
     width: 100%;
     height: 100%;
+    padding: 100px 40px 40px 40px;
     opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    background-color: #050507;
+    visibility: hidden;
+    transform: scale(0.99);
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+    overflow-y: auto;
 }
 
 .view-section.active {
     opacity: 1;
-    pointer-events: auto;
+    visibility: visible;
+    transform: scale(1);
 }
 
 .section-container {
-    width: 100%;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 120px 40px 40px 40px;
-    height: 100%;
-    overflow-y: auto;
+    width: 100%;
 }
 
 .view-title {
-    font-size: 1.8rem;
-    font-weight: 700;
-    letter-spacing: -0.5px;
-    margin-bottom: 32px;
-    color: rgba(255, 255, 255, 0.9);
-    border-left: 3px solid rgba(255, 255, 255, 0.2);
-    padding-left: 12px;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: rgba(255, 255, 255, 0.3);
+    margin-bottom: 30px;
+    border-left: 2px solid rgba(255, 255, 255, 0.1);
+    padding-left: 15px;
+}
+
+/* Static Center Layout Strategy */
+.static-center, .hero-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 140px);
+    text-align: center;
 }
 
 /* ==========================================================================
-   TAB 1: MAIN HOME LAYOUT
+   MAIN DASHBOARD PROFILE VIEW
    ========================================================================== */
-#viewport-main {
-    background: radial-gradient(circle at center, #0a0a0f 0%, #030305 100%);
-}
-
-.hero-center {
-    text-align: center;
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-}
-
 .profile-frame {
-    width: 110px;
-    height: 110px;
-    margin: 0 auto 24px auto;
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
     overflow: hidden;
-    border: 2px solid rgba(255, 255, 255, 0.1);
-    background: rgba(255, 255, 255, 0.02);
+    margin-bottom: 25px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: #0e0e12;
 }
 
 .profile-frame img {
@@ -98,68 +308,62 @@ body, html {
 
 .hero-name {
     font-size: 2.2rem;
-    font-weight: 700;
-    letter-spacing: -0.5px;
-    margin-bottom: 24px;
+    font-weight: 800;
+    letter-spacing: -1px;
+    text-transform: uppercase;
+    margin-bottom: 25px;
 }
 
 .bio-content {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
+    max-width: 520px;
 }
 
 .bio-lead {
-    font-size: 1.15rem;
-    font-weight: 500;
+    font-size: 1rem;
     color: #ffffff;
-    line-height: 1.5;
+    margin-bottom: 15px;
 }
 
 .bio-text {
-    font-size: 1rem;
-    color: rgba(255, 255, 255, 0.65);
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.5);
     line-height: 1.6;
+    margin-bottom: 15px;
 }
 
 .bio-tools-list {
-    margin-top: 14px;
-    padding-top: 20px;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
-    text-align: center;
+    margin-top: 35px;
+    border: 1px dashed rgba(255, 255, 255, 0.05);
+    padding: 15px 20px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.01);
 }
 
 .tools-label {
-    display: block;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     text-transform: uppercase;
-    letter-spacing: 1px;
-    color: rgba(255, 255, 255, 0.35);
-    margin-bottom: 6px;
+    color: rgba(255, 255, 255, 0.3);
+    display: block;
+    margin-bottom: 4px;
 }
 
 .tools-items {
-    font-size: 0.95rem;
-    color: rgba(255, 255, 255, 0.85);
-    font-weight: 500;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.7);
 }
 
 /* ==========================================================================
-   TAB 2: RENDER VIEWPORT DUAL-IMAGE SLIDER SYSTEM
+   INTERACTIVE RENDER SLIDER VIEWPORT (TAB 2)
    ========================================================================== */
-.slider-loader {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 100;
-}
-
 .slider-workspace {
     position: relative;
     width: 100%;
-    height: 100%;
+    height: calc(100vh - 140px);
+    background: #0e0e12;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    border-radius: 6px;
     overflow: hidden;
+    user-select: none;
 }
 
 .image-pane {
@@ -173,31 +377,29 @@ body, html {
 
 .image-pane img {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    object-fit: cover;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transform: translate(-50%, -50%);
     pointer-events: none;
 }
 
-.layer-render-pass {
-    z-index: 12;
-}
-
 .layer-wireframe {
-    z-index: 14;
-    width: 50%; 
+    width: 50%; /* Default cut split window */
+    z-index: 10;
+    border-right: 1px solid rgba(255, 255, 255, 0.3);
 }
 
+/* Center tracking bar lines */
 .slider-divider {
     position: absolute;
     top: 0;
     left: 50%;
-    width: 2px;
+    width: 0;
     height: 100%;
-    background-color: rgba(255, 255, 255, 0.3);
-    z-index: 16;
+    z-index: 20;
     cursor: ew-resize;
 }
 
@@ -208,376 +410,211 @@ body, html {
     transform: translate(-50%, -50%);
     width: 44px;
     height: 44px;
-    background-color: #0b0b0d;
+    background: #0b0b0e;
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     color: #ffffff;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-    transition: background-color 0.2s, border-color 0.2s;
+    pointer-events: none;
 }
 
-.slider-divider:hover .handle-button {
-    background-color: #121216;
-    border-color: rgba(255, 255, 255, 0.5);
-}
-
+/* Gallery Navigation Buttons */
 .gallery-arrow {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
     width: 50px;
     height: 50px;
-    background: rgba(10, 10, 12, 0.6);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(12px);
+    background: rgba(11, 11, 14, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    color: rgba(255, 255, 255, 0.4);
     border-radius: 50%;
-    color: #ffffff;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    z-index: 18;
-    transition: background 0.2s, border-color 0.2s;
+    z-index: 30;
+    font-size: 1.1rem;
+    backdrop-filter: blur(4px);
+    transition: all 0.2s ease;
 }
 
 .gallery-arrow:hover {
-    background: rgba(15, 15, 20, 0.9);
-    border-color: rgba(255, 255, 255, 0.3);
+    color: #ffffff;
+    background: #0b0b0e;
+    border-color: rgba(255,255,255,0.2);
 }
 
-.arrow-left { left: 32px; }
-.arrow-right { right: 32px; }
+.arrow-left { left: 30px; }
+.arrow-right { right: 30px; }
 
 .gallery-index-tag {
     position: absolute;
-    bottom: 32px;
-    right: 32px;
-    background: rgba(10, 10, 12, 0.7);
-    border: 1px solid rgba(255,255,0.08);
-    backdrop-filter: blur(10px);
-    padding: 8px 16px;
+    bottom: 25px;
+    left: 30px;
+    background: #0b0b0e;
+    border: 1px dashed rgba(255, 255, 255, 0.1);
+    padding: 6px 14px;
     font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 1.5px;
-    border-radius: 4px;
-    z-index: 18;
+    letter-spacing: 1px;
+    color: rgba(255, 255, 255, 0.5);
+    z-index: 30;
+    border-radius: 3px;
+}
+
+.slider-loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100;
 }
 
 /* ==========================================================================
-   TAB 3: DAVINCI VIDEO MATRIX
+   DAVINCI RESOLVE EDITS REEL MODULES (TAB 3)
    ========================================================================== */
 .video-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
-    gap: 24px;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    gap: 30px;
+}
+
+@media(max-width: 500px) {
+    .video-grid { grid-template-columns: 1fr; }
 }
 
 .video-card {
-    background: #0d0d11;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 8px;
+    background: #0e0e12;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    border-radius: 6px;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
 }
 
 .video-card video {
     width: 100%;
     aspect-ratio: 16/9;
     object-fit: cover;
-    display: block;
+    background: #000000;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.02);
 }
 
 .video-meta {
-    padding: 16px;
-    font-size: 0.95rem;
-    color: rgba(255, 255, 255, 0.8);
+    padding: 16px 20px;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.7);
+    letter-spacing: 0.5px;
 }
 
 /* ==========================================================================
-   TAB 4: GITHUB REPO GRAPH CARD LAYOUT
+   GITHUB REPOSITORIES & PYTHON LAB CORE GRIDS (TAB 4 & 5)
    ========================================================================== */
-.github-grid {
+.github-grid, .python-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 20px;
+    padding-top: 10px;
 }
 
 .repo-card {
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    border-radius: 8px;
+    background: #0e0e12;
+    border: 1px solid rgba(255, 255, 255, 0.03);
     padding: 24px;
+    border-radius: 6px;
     text-decoration: none;
     color: inherit;
     display: flex;
     flex-direction: column;
-    transition: background 0.2s, border-color 0.2s, transform 0.2s;
+    min-height: 170px;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
 }
 
 .repo-card:hover {
-    background: rgba(255, 255, 255, 0.04);
-    border-color: rgba(255, 255, 255, 0.15);
-    transform: translateY(-2px);
+    background: rgba(255,255,255,0.01);
+    border-color: rgba(255, 255, 255, 0.1);
 }
 
 .repo-header {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    color: rgba(255, 255, 255, 0.3);
-    margin-bottom: 16px;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    color: rgba(255, 255, 255, 0.2);
+    font-size: 1.1rem;
 }
 
 .repo-status {
     font-size: 0.75rem;
-    background: rgba(255, 255, 255, 0.05);
-    padding: 3px 8px;
-    border-radius: 4px;
-    color: rgba(255, 255, 255, 0.6);
+    color: rgba(255, 255, 255, 0.5);
     display: flex;
     align-items: center;
-    gap: 4px;
 }
 
 .repo-card h3 {
-    font-size: 1.15rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #ffffff;
     margin-bottom: 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .repo-card p {
-    font-size: 0.9rem;
-    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.4);
     line-height: 1.5;
     margin-bottom: 20px;
     flex-grow: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.repo-tags {
+    display: flex;
+    gap: 8px;
 }
 
 .repo-tags span {
-    font-size: 0.75rem;
-    color: rgba(255, 255, 255, 0.7);
-    background: rgba(255, 255, 255, 0.04);
-    padding: 4px 10px;
-    border-radius: 12px;
-    margin-right: 6px;
-}
-
-/* ==========================================================================
-   TAB 5: PYTHON STANDBY STATION
-   ========================================================================== */
-.static-center {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.terminal-loader {
-    background: #09090c;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    padding: 32px;
-    border-radius: 6px;
-    font-family: monospace;
-    width: 100%;
-    max-width: 550px;
-}
-
-.console-line { font-size: 0.9rem; margin-bottom: 8px; }
-.status-yellow { color: #e6b800; }
-.sub-text { color: rgba(255, 255, 255, 0.3) !important; margin-top: 16px; }
-
-/* ==========================================================================
-   HEADER ACTIONS (CRITICAL Z-INDEX FORCE)
-   ========================================================================== */
-.top-bar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    padding: 24px 32px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 300; 
-    background: transparent;
-    border: none;
-}
-
-.dashed-menu-btn {
-    width: 32px;
-    height: 24px;
-    background: transparent !important;
-    border: none !important;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    cursor: pointer;
-    padding: 0;
-    position: relative;
-    z-index: 310;
-}
-
-.dashed-menu-btn .dash {
-    display: block;
-    width: 100%;
-    height: 2px;
-    background-color: #ffffff !important;
-    transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
-}
-
-.dashed-menu-btn.active .dash:nth-child(1) { transform: translateY(11px) rotate(45deg); }
-.dashed-menu-btn.active .dash:nth-child(2) { opacity: 0; }
-.dashed-menu-btn.active .dash:nth-child(3) { transform: translateY(-11px) rotate(-45deg); }
-
-.social-nav {
-    display: flex;
-    align-items: center;
-    gap: 24px;
-    position: relative;
-    z-index: 310;
-}
-
-.social-nav a {
+    font-size: 0.7rem;
+    background: rgba(255, 255, 255, 0.03);
+    padding: 3px 8px;
+    border-radius: 3px;
     color: rgba(255, 255, 255, 0.6);
-    text-decoration: none;
-    font-size: 1.3rem;
-    transition: color 0.2s;
+    border: 1px solid rgba(255, 255, 255, 0.02);
 }
 
-.social-nav a:hover { color: #ffffff; }
-
-.sketchfab-link img {
-    height: 18px;
-    filter: brightness(0) invert(1);
-    opacity: 0.6;
+/* Script Customizations */
+.script-card p {
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.25);
 }
-.sketchfab-link:hover img { opacity: 1; }
-
-.discord-link {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 0.95rem !important;
-    background: rgba(255, 255, 255, 0.04);
-    padding: 6px 14px;
-    border-radius: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(8px);
-}
-.discord-tag { font-size: 0.8rem; }
 
 /* ==========================================================================
-   SLIDING ACCESS HATCH PANEL
+   TERMINAL BOOT CONSOLE SIMULATOR
    ========================================================================== */
-.panel-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 360px;
-    height: 100vh;
-    z-index: 250; 
-    pointer-events: none;
-    transform: translateY(25px) scale(0.97);
-    opacity: 0;
-    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.15), opacity 0.3s ease;
-}
-
-.panel-container.active {
-    transform: translateY(0) scale(1);
-    opacity: 1;
-    pointer-events: auto;
-}
-
-.trapdoor {
-    position: absolute;
-    left: 0;
-    width: 100%;
-    height: 50%;
-    background-color: #09090b;
-    border-right: 1px solid rgba(255, 255, 255, 0.04);
-    z-index: 2;
-    transition: transform 0.45s cubic-bezier(0.77, 0, 0.175, 1);
-}
-
-.top-door { top: 0; transform-origin: top; }
-.bottom-door { bottom: 0; transform-origin: bottom; }
-.panel-container.open .top-door { transform: scaleY(0); }
-.panel-container.open .bottom-door { transform: scaleY(0); }
-
-.panel-content {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-    border-right: 1px solid rgba(255, 255, 255, 0.08);
-    background: linear-gradient(to bottom, #000000 0%, #08080a 100%);
-}
-
-.panel-container.open .panel-content {
-    background: linear-gradient(to bottom, rgba(8, 8, 10, 0.95) 0%, rgba(6, 6, 8, 0.88) 100%);
-    backdrop-filter: blur(25px);
-}
-
-.panel-inner {
-    padding: 100px 40px 40px 40px;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    opacity: 0;
-    transform: translateX(-8px);
-    transition: opacity 0.3s ease, transform 0.3s ease;
-    transition-delay: 0.18s;
-}
-
-.panel-container.open .panel-inner { opacity: 1; transform: translateX(0); }
-.panel-title { font-size: 2rem; font-weight: 700; margin-bottom: 4px; }
-.panel-subtitle { font-size: 0.95rem; color: rgba(255, 255, 255, 0.4); margin-bottom: 40px; }
-
-.panel-navigation { display: flex; flex-direction: column; gap: 14px; flex-grow: 1; }
-
-.nav-item {
-    background: none !important;
-    border: none !important;
-    font-family: inherit;
+.terminal-loader {
     text-align: left;
-    font-size: 1.2rem;
-    color: rgba(255, 255, 255, 0.55);
-    font-weight: 500;
-    cursor: pointer;
-    transition: color 0.2s, transform 0.2s;
-    display: inline-flex;
-    align-items: center;
-    transform-origin: left;
-    padding: 4px 0;
+    max-width: 600px;
 }
 
-.nav-item:hover, .nav-item.active { color: #ffffff; transform: translateX(4px); }
-.nav-item::before {
-    content: '›';
-    margin-right: 8px;
-    opacity: 0;
-    transform: translateX(-4px);
-    transition: opacity 0.2s, transform 0.2s;
+.console-line {
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+    color: rgba(255, 255, 255, 0.5);
 }
-.nav-item:hover::before, .nav-item.active::before { opacity: 1; transform: translateX(0); }
 
-.panel-footer-box {
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    padding: 18px;
-    border-radius: 6px;
-}
-.panel-footer-box h3 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: rgba(255, 255, 255, 0.35); margin-bottom: 6px; }
-.panel-footer-box p { font-size: 0.85rem; line-height: 1.4; color: rgba(255, 255, 255, 0.75); }
-
-@media (max-width: 768px) {
-    .video-grid { grid-template-columns: 1fr; }
-    .arrow-left { left: 16px; }
-    .arrow-right { right: 16px; }
-}
-@media (max-width: 480px) {
-    .panel-container { width: 100vw; }
-    .discord-tag { display: none; }
-    .top-bar { padding: 16px; }
+.status-yellow { color: #d1b16a; }
+.sub-text {
+    color: rgba(255, 255, 255, 0.25);
+    font-size: 0.8rem;
+    margin-top: 10px;
 }
