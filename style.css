@@ -1,0 +1,583 @@
+/* ==========================================================================
+   RESET & FOUNDATION
+   ========================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: #030303;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    color: #ffffff;
+    user-select: none;
+}
+
+/* ==========================================================================
+   VIEWPORT ENGINE ROUTER
+   ========================================================================== */
+#viewports-wrapper {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    z-index: 10;
+}
+
+.view-section {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #050507;
+}
+
+.view-section.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.section-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 120px 40px 40px 40px;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.view-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-bottom: 32px;
+    color: rgba(255, 255, 255, 0.9);
+    border-left: 3px solid rgba(255, 255, 255, 0.2);
+    padding-left: 12px;
+}
+
+/* ==========================================================================
+   TAB 1: MAIN HOME LAYOUT
+   ========================================================================== */
+#viewport-main {
+    background: radial-gradient(circle at center, #0a0a0f 0%, #030305 100%);
+}
+
+.hero-center {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.profile-frame {
+    width: 110px;
+    height: 110px;
+    margin: 0 auto 24px auto;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.profile-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.hero-name {
+    font-size: 2.2rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-bottom: 24px;
+}
+
+.bio-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.bio-lead {
+    font-size: 1.15rem;
+    font-weight: 500;
+    color: #ffffff;
+    line-height: 1.5;
+}
+
+.bio-text {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.65);
+    line-height: 1.6;
+}
+
+.bio-tools-list {
+    margin-top: 14px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    text-align: center;
+}
+
+.tools-label {
+    display: block;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: rgba(255, 255, 255, 0.35);
+    margin-bottom: 6px;
+}
+
+.tools-items {
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.85);
+    font-weight: 500;
+}
+
+/* ==========================================================================
+   TAB 2: RENDER VIEWPORT DUAL-IMAGE SLIDER SYSTEM
+   ========================================================================== */
+.slider-loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+}
+
+.slider-workspace {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.image-pane {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.image-pane img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    pointer-events: none;
+}
+
+.layer-render-pass {
+    z-index: 12;
+}
+
+.layer-wireframe {
+    z-index: 14;
+    width: 50%; 
+}
+
+.slider-divider {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 2px;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.3);
+    z-index: 16;
+    cursor: ew-resize;
+}
+
+.handle-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 44px;
+    height: 44px;
+    background-color: #0b0b0d;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    font-size: 0.95rem;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+.slider-divider:hover .handle-button {
+    background-color: #121216;
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.gallery-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50px;
+    height: 50px;
+    background: rgba(10, 10, 12, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(12px);
+    border-radius: 50%;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 18;
+    transition: background 0.2s, border-color 0.2s;
+}
+
+.gallery-arrow:hover {
+    background: rgba(15, 15, 20, 0.9);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.arrow-left { left: 32px; }
+.arrow-right { right: 32px; }
+
+.gallery-index-tag {
+    position: absolute;
+    bottom: 32px;
+    right: 32px;
+    background: rgba(10, 10, 12, 0.7);
+    border: 1px solid rgba(255,255,0.08);
+    backdrop-filter: blur(10px);
+    padding: 8px 16px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    border-radius: 4px;
+    z-index: 18;
+}
+
+/* ==========================================================================
+   TAB 3: DAVINCI VIDEO MATRIX
+   ========================================================================== */
+.video-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+    gap: 24px;
+}
+
+.video-card {
+    background: #0d0d11;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.video-card video {
+    width: 100%;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+    display: block;
+}
+
+.video-meta {
+    padding: 16px;
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* ==========================================================================
+   TAB 4: GITHUB REPO GRAPH CARD LAYOUT
+   ========================================================================== */
+.github-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 20px;
+}
+
+.repo-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 8px;
+    padding: 24px;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    transition: background 0.2s, border-color 0.2s, transform 0.2s;
+}
+
+.repo-card:hover {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+}
+
+.repo-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: rgba(255, 255, 255, 0.3);
+    margin-bottom: 16px;
+}
+
+.repo-status {
+    font-size: 0.75rem;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 3px 8px;
+    border-radius: 4px;
+    color: rgba(255, 255, 255, 0.6);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.repo-card h3 {
+    font-size: 1.15rem;
+    margin-bottom: 8px;
+}
+
+.repo-card p {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.5);
+    line-height: 1.5;
+    margin-bottom: 20px;
+    flex-grow: 1;
+}
+
+.repo-tags span {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.04);
+    padding: 4px 10px;
+    border-radius: 12px;
+    margin-right: 6px;
+}
+
+/* ==========================================================================
+   TAB 5: PYTHON STANDBY STATION
+   ========================================================================== */
+.static-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.terminal-loader {
+    background: #09090c;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 32px;
+    border-radius: 6px;
+    font-family: monospace;
+    width: 100%;
+    max-width: 550px;
+}
+
+.console-line { font-size: 0.9rem; margin-bottom: 8px; }
+.status-yellow { color: #e6b800; }
+.sub-text { color: rgba(255, 255, 255, 0.3) !important; margin-top: 16px; }
+
+/* ==========================================================================
+   HEADER ACTIONS (CRITICAL Z-INDEX FORCE)
+   ========================================================================== */
+.top-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 24px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 300; 
+    background: transparent;
+    border: none;
+}
+
+.dashed-menu-btn {
+    width: 32px;
+    height: 24px;
+    background: transparent !important;
+    border: none !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+    padding: 0;
+    position: relative;
+    z-index: 310;
+}
+
+.dashed-menu-btn .dash {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background-color: #ffffff !important;
+    transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.dashed-menu-btn.active .dash:nth-child(1) { transform: translateY(11px) rotate(45deg); }
+.dashed-menu-btn.active .dash:nth-child(2) { opacity: 0; }
+.dashed-menu-btn.active .dash:nth-child(3) { transform: translateY(-11px) rotate(-45deg); }
+
+.social-nav {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    position: relative;
+    z-index: 310;
+}
+
+.social-nav a {
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+    font-size: 1.3rem;
+    transition: color 0.2s;
+}
+
+.social-nav a:hover { color: #ffffff; }
+
+.sketchfab-link img {
+    height: 18px;
+    filter: brightness(0) invert(1);
+    opacity: 0.6;
+}
+.sketchfab-link:hover img { opacity: 1; }
+
+.discord-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.95rem !important;
+    background: rgba(255, 255, 255, 0.04);
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(8px);
+}
+.discord-tag { font-size: 0.8rem; }
+
+/* ==========================================================================
+   SLIDING ACCESS HATCH PANEL
+   ========================================================================== */
+.panel-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 360px;
+    height: 100vh;
+    z-index: 250; 
+    pointer-events: none;
+    transform: translateY(25px) scale(0.97);
+    opacity: 0;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.15), opacity 0.3s ease;
+}
+
+.panel-container.active {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.trapdoor {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    background-color: #09090b;
+    border-right: 1px solid rgba(255, 255, 255, 0.04);
+    z-index: 2;
+    transition: transform 0.45s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.top-door { top: 0; transform-origin: top; }
+.bottom-door { bottom: 0; transform-origin: bottom; }
+.panel-container.open .top-door { transform: scaleY(0); }
+.panel-container.open .bottom-door { transform: scaleY(0); }
+
+.panel-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+    background: linear-gradient(to bottom, #000000 0%, #08080a 100%);
+}
+
+.panel-container.open .panel-content {
+    background: linear-gradient(to bottom, rgba(8, 8, 10, 0.95) 0%, rgba(6, 6, 8, 0.88) 100%);
+    backdrop-filter: blur(25px);
+}
+
+.panel-inner {
+    padding: 100px 40px 40px 40px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    transform: translateX(-8px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    transition-delay: 0.18s;
+}
+
+.panel-container.open .panel-inner { opacity: 1; transform: translateX(0); }
+.panel-title { font-size: 2rem; font-weight: 700; margin-bottom: 4px; }
+.panel-subtitle { font-size: 0.95rem; color: rgba(255, 255, 255, 0.4); margin-bottom: 40px; }
+
+.panel-navigation { display: flex; flex-direction: column; gap: 14px; flex-grow: 1; }
+
+.nav-item {
+    background: none !important;
+    border: none !important;
+    font-family: inherit;
+    text-align: left;
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.55);
+    font-weight: 500;
+    cursor: pointer;
+    transition: color 0.2s, transform 0.2s;
+    display: inline-flex;
+    align-items: center;
+    transform-origin: left;
+    padding: 4px 0;
+}
+
+.nav-item:hover, .nav-item.active { color: #ffffff; transform: translateX(4px); }
+.nav-item::before {
+    content: '›';
+    margin-right: 8px;
+    opacity: 0;
+    transform: translateX(-4px);
+    transition: opacity 0.2s, transform 0.2s;
+}
+.nav-item:hover::before, .nav-item.active::before { opacity: 1; transform: translateX(0); }
+
+.panel-footer-box {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 18px;
+    border-radius: 6px;
+}
+.panel-footer-box h3 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: rgba(255, 255, 255, 0.35); margin-bottom: 6px; }
+.panel-footer-box p { font-size: 0.85rem; line-height: 1.4; color: rgba(255, 255, 255, 0.75); }
+
+@media (max-width: 768px) {
+    .video-grid { grid-template-columns: 1fr; }
+    .arrow-left { left: 16px; }
+    .arrow-right { right: 16px; }
+}
+@media (max-width: 480px) {
+    .panel-container { width: 100vw; }
+    .discord-tag { display: none; }
+    .top-bar { padding: 16px; }
+}
