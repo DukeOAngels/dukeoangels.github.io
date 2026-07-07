@@ -77,7 +77,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const files = await res.json();
             
             const videoExtensions = [".mp4", ".webm", ".mov"];
-            const videos = files.filter(f => videoExtensions.some(ext => f.name.toLowerCase().endswith(ext)));
+            const videos = files.filter(f => videoExtensions.some(ext => f.name.toLowerCase().endsWith(ext)));
             
             if (videos.length === 0) {
                 davinciGrid.innerHTML = `<p class="console-line" style="color: rgba(255,255,255,0.3)">// No video files found in the 'davinci' directory.</p>`;
