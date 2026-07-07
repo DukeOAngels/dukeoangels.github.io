@@ -32,7 +32,7 @@ body {
 }
 
 /* ==========================================================================
-   AMBIENT FULL-SCREEN BACKGROUND VIDEO LAYER (FIXED AXIS)
+   AMBIENT FULL-SCREEN BACKGROUND VIDEO LAYER (HARDWARE OPTIMIZED)
    ========================================================================== */
 .video-bg-container {
     position: fixed;
@@ -55,7 +55,9 @@ body {
     min-height: 100%;
     width: auto;
     height: auto;
-    transform: translate(-50%, -50%);
+    /* Forces 3D hardware acceleration layer rendering to save battery/performance */
+    transform: translate(-50%, -50%) translateZ(0);
+    will-change: transform;
     object-fit: cover; /* Forces aspect ratio to fill screen without stretching */
 }
 
@@ -66,7 +68,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(11, 11, 14, 0.75); /* Dark tint overlay */
+    background: rgba(11, 11, 14, 0.75); /* Dark tint layer */
     z-index: -1;
 }
 
@@ -272,7 +274,7 @@ body {
 }
 
 /* ==========================================================================
-   VIEWPORT FRAMES & LAYOUT WRAPPERS (WITH FROSTED READABILITY ENGINE)
+   VIEWPORT FRAMES & LAYOUT WRAPPERS
    ========================================================================== */
 #viewports-wrapper {
     position: relative;
@@ -292,9 +294,7 @@ body {
     transform: scale(0.99);
     transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
     overflow-y: auto;
-    background: rgba(11, 11, 14, 0.4); /* Subtle backing sheet over background video */
-    backdrop-filter: blur(8px); /* Frosted glass separation engine */
-    -webkit-backdrop-filter: blur(8px);
+    background: transparent; /* Passes background color responsibility down to specific child cards */
 }
 
 .view-section.active {
@@ -330,7 +330,7 @@ body {
 }
 
 /* ==========================================================================
-   MAIN DASHBOARD PROFILE VIEW
+   MAIN DASHBOARD PROFILE VIEW (ROUNDS MASK CARD ENGINE)
    ========================================================================== */
 .profile-frame {
     width: 100px;
@@ -338,7 +338,7 @@ body {
     border-radius: 50%;
     overflow: hidden;
     margin-bottom: 25px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.15);
     background: #0e0e12;
 }
 
@@ -354,44 +354,57 @@ body {
     letter-spacing: -1px;
     text-transform: uppercase;
     margin-bottom: 25px;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); /* Pops profile name cleanly outside box edges */
 }
 
+/* The Rounded Gray Semi-Transparent Content Square */
 .bio-content {
-    max-width: 520px;
+    max-width: 560px;
+    width: 100%;
+    background: rgba(25, 25, 30, 0.75); /* Clean gray, semi-transparent matte panel */
+    border: 1px solid rgba(255, 255, 255, 0.08); /* Crisp cyber bounding edge line */
+    padding: 35px 30px;
+    border-radius: 12px; /* Smooth card rounded corners */
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4); /* Throws depth onto looping video */
+    text-align: center;
 }
 
+/* Fully Visible Solid Text Layers */
 .bio-lead {
     font-size: 1rem;
-    color: #ffffff;
-    margin-bottom: 15px;
+    color: #ffffff; /* Opaque crisp white text */
+    font-weight: 600;
+    margin-bottom: 18px;
+    line-height: 1.4;
 }
 
 .bio-text {
-    font-size: 0.85rem;
-    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.88rem;
+    color: #e2e2e8; /* High readability solid off-white text */
     line-height: 1.6;
-    margin-bottom: 15px;
+    margin-bottom: 0px;
 }
 
 .bio-tools-list {
-    margin-top: 35px;
-    border: 1px dashed rgba(255, 255, 255, 0.05);
+    margin-top: 25px;
+    border: 1px dashed rgba(255, 255, 255, 0.12);
     padding: 15px 20px;
-    border-radius: 4px;
-    background: rgba(255, 255, 255, 0.01);
+    border-radius: 6px;
+    background: rgba(0, 0, 0, 0.2); /* Deep dark internal contrast shelf */
 }
 
 .tools-label {
     font-size: 0.75rem;
     text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.3);
+    color: rgba(255, 255, 255, 0.4);
     display: block;
-    margin-bottom: 4px;
+    margin-bottom: 6px;
+    letter-spacing: 0.5px;
 }
 
 .tools-items {
     font-size: 0.85rem;
-    color: rgba(255, 255, 255, 0.7);
+    color: #ffffff; /* Fully visible white tools labels */
 }
 
 /* ==========================================================================
